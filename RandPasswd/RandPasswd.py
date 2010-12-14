@@ -1,4 +1,4 @@
-#!/usr/bin/env  python3.1
+#!/usr/bin/env  python
 def usage():
     print ("""
 RandPasswd: A generator for Sort-of-pronounceable passwords.
@@ -44,6 +44,9 @@ dict = {
     'y': ['jqvkuzfhxwbigedoartncmspl', 24],
     'z': ['fvpknmhgsrcwtbdulyioae', 21]}
 
+for x in dict.keys():
+    dict[x][0] = list(dict[x][0])
+
 wordlen = 8
 numwords = 20
 padding = 2
@@ -68,40 +71,21 @@ for opt, arg in opts:
 realwordlen = wordlen - padding - 1
 chars = list(string.ascii_letters[:26])
 last_char = ""
-nl = "\n"
-
-randomloop = ["sout(str(randint(0,9))); " for x in range(padding)] 
 
 sout = sys.stdout.write
-blah = "for x in range(int(numwords / 10)): "
+rn = 0
+rand = 0
+len = 0
 
-innerloop = []
-
-blah2 = "list_len = dict[last_char][1]; last_char = dict[last_char][0][randint(randint(0,list_len-1),list_len)]; "
-blah2 += "sout(last_char); "
-
-for x in range(10):
-    innerloop += ["last_char = choice(chars); sout(last_char); "]
-    innerloop += [blah2 for x in range(realwordlen)]
-    innerloop +=  randomloop
-    innerloop += ["sout(nl); "]
-
-exec("".join(innerloop))
-
-blah = ""
-
-innerloop = [] 
-
-for x in range(int(numwords % 10)):
-    innerloop += ["last_char = choice(chars); sout(last_char); "]
-    innerloop += [blah2 for x in range(realwordlen)]
-    innerloop +=  randomloop
-    innerloop += ["sout(nl); "]
-
-exec("".join(innerloop))
-
-#for x in range(numwords):
-#    last_char = choice(chars)
-#    sout(last_char);
-#    exec(il)
-#    sout("\n");
+for w in xrange(numwords):
+    last_char = chars[randint(0,25)]
+    sout(last_char)
+    for x in xrange(realwordlen):
+        len = dict[last_char][1]
+        rn = 0
+        rand = randint(0, len)
+        last_char = dict[last_char][0][randint(rn,len)]
+        sout(last_char)
+    for x in xrange(padding):
+        sout(str(randint(0,9)))
+    print
