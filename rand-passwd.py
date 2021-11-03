@@ -14,39 +14,37 @@ Usage: RandPasswd [OPTION]
 import getopt
 import sys
 import string
-from random import randint, choice
+import random
 
 dict = { 
-    'a': ['jqohzxwfykvuiegdpmbscrtnl', 24],
-    'b': ['zqkgwfnvhpmjctdysuroaeil', 23],
-    'c': ['fgbwpdzmqnsylkurtiehao', 21],
-    'd': ['qzktpcjbfvhwmsgnyulroaie', 23],
-    'e': ['jzkqyhwbvfgiuxopmcatldsnr', 24],
-    'f': ['vzjkgcpdmbnhwsytralueoi', 22],
-    'g': ['vjzckpfdbtwsmyhnuolraie', 22],
-    'h': ['jqzvkgcdpsbfwmnlturyaoie', 23],
-    'i': ['yjwhqxukbefgrzpmvldaotscn', 24],
-    'j': ['kbtlpmndhryioeau', 15],
-    'k': ['zvjgcdpftbmwrhusynolaie', 22],
-    'l': ['xjqzrhwbkfgsnvcmpdtuoyaie', 24],
-    'm': ['qzjkgtvdhcrwflsnyubpoiea', 23],
-    'n': ['xqjzwhbmvlrykpfuscdoagite', 24],
-    'o': ['jqzyhkxfeawbvidgctspmlurn', 24],
-    'p': ['qvjdgkcfbwmnysutliaoreh', 22],
-    'q': ['raoeiu', 5],
-    'r': ['xzqjwfvkhlbgpndscumtyoiae', 24],
-    's': ['zjvdgrbfqwknylmpaocuheit', 23],
-    't': ['xqjkvdgzpbfnmwscluyhraoei', 24],
-    'u': ['wqjhyzxvkfogediacpbtmrlsn', 24],
-    'v': ['gdkzclnsryuoaie', 14],
-    'w': ['jvqzgcpuftmkybdslrnheoia', 23],
-    'x': ['zvkgrndqwmbflshucepoyati', 23],
-    'y': ['jqvkuzfhxwbigedoartncmspl', 24],
-    'z': ['fvpknmhgsrcwtbdulyioae', 21]}
+    'a': 'jqohzxwfykvuiegdpmbscrtnl',
+    'b': 'zqkgwfnvhpmjctdysuroaeil',
+    'c': 'fgbwpdzmqnsylkurtiehao',
+    'd': 'qzktpcjbfvhwmsgnyulroaie',
+    'e': 'jzkqyhwbvfgiuxopmcatldsnr',
+    'f': 'vzjkgcpdmbnhwsytralueoi',
+    'g': 'vjzckpfdbtwsmyhnuolraie',
+    'h': 'jqzvkgcdpsbfwmnlturyaoie',
+    'i': 'yjwhqxukbefgrzpmvldaotscn',
+    'j': 'kbtlpmndhryioeau',
+    'k': 'zvjgcdpftbmwrhusynolaie',
+    'l': 'xjqzrhwbkfgsnvcmpdtuoyaie',
+    'm': 'qzjkgtvdhcrwflsnyubpoiea',
+    'n': 'xqjzwhbmvlrykpfuscdoagite',
+    'o': 'jqzyhkxfeawbvidgctspmlurn',
+    'p': 'qvjdgkcfbwmnysutliaoreh',
+    'q': 'raoeiu',
+    'r': 'xzqjwfvkhlbgpndscumtyoiae',
+    's': 'zjvdgrbfqwknylmpaocuheit',
+    't': 'xqjkvdgzpbfnmwscluyhraoei',
+    'u': 'wqjhyzxvkfogediacpbtmrlsn',
+    'v': 'gdkzclnsryuoaie',
+    'w': 'jvqzgcpuftmkybdslrnheoia',
+    'x': 'zvkgrndqwmbflshucepoyati',
+    'y': 'jqvkuzfhxwbigedoartncmspl',
+    'z': 'fvpknmhgsrcwtbdulyioae'}
 
-for x in dict.keys():
-    dict[x][0] = list(dict[x][0])
-
+vowels = "aeiou"
 wordlen = 8
 numwords = 20
 padding = 2
@@ -77,15 +75,16 @@ rn = 0
 rand = 0
 len = 0
 
-for w in xrange(numwords):
-    last_char = chars[randint(0,25)]
+for w in range(numwords):
+    myword = []
+    last_char = random.choice(string.ascii_lowercase)
     sout(last_char)
-    for x in xrange(realwordlen):
-        len = dict[last_char][1]
-        rn = 0
-        rand = randint(0, len)
-        last_char = dict[last_char][0][randint(rn,len)]
+    for x in range(realwordlen):
+        if last_char not in vowels:
+            last_char = random.choice(vowels)
+        else:
+            last_char = random.choice(dict[last_char])
         sout(last_char)
-    for x in xrange(padding):
-        sout(str(randint(0,9)))
-    print
+    for x in range(padding):
+        sout(str(random.randint(0,9)))
+    sout("\n")
